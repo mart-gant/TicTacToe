@@ -1,4 +1,4 @@
-package com.mart_gant.tictactoe.components
+package com.mart_gant.tictactoe.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
