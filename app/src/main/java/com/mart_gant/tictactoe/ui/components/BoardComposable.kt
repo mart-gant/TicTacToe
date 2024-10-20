@@ -7,6 +7,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,6 +35,8 @@ fun BoardComposable(gameController: GameController, onCellClick: (row: Int, col:
                 }
             }
         }
+        Spacer(modifier = Modifier.height(16.dp))
+        StatusMessage(gameController)
     }
 }
 
@@ -56,15 +59,26 @@ fun CellComposable(symbol: String, onClick: () -> Unit) {
     }
 }
 
+@Composable
+fun StatusMessage(gameController: GameController) {
+    val message = remember {
+        when {
+            gameController.isGameOver() && gameController.getWinner() != null -> "Player ${gameController.getWinner()} wins!"
+            gameController.isGameOver() -> "It's a draw!"
+            else -> "Player ${gameController.getCurrentPlayer()}'s turn"
+        }
+    }
+    Text(
+        text = message,
+        style = MaterialTheme.typography.bodyLarge,
+        color = if (gameController.isGameOver()) Color.Red else Color.Black,
+        textAlign = TextAlign.Center
+    )
+}
+
 @Preview(showBackground = true)
 @Composable
 fun PreviewBoardComposable() {
     val gameController = GameController()
-    // Zainicjalizuj planszę, aby uniknąć problemów w podglądzie
-    gameController.getBoard().forEachIndexed { rowIndex, row ->
-        row.forEachIndexed { colIndex, _ ->
-            gameController.handleTap(rowIndex, colIndex)
-        }
-    }
-    BoardComposable(gameController = gameController) { _, _ -> }
+    BoardComposable(gameController = gameController) { row, col -> gameController.handleTap(row, col) }
 }
