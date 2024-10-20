@@ -28,7 +28,7 @@ fun BoardComposable(gameController: GameController, onCellClick: (row: Int, col:
             Row {
                 for (col in 0..2) {
                     CellComposable(
-                        symbol = gameController.board.board[row][col],
+                        symbol = gameController.getBoard()[row][col] ?: "",
                         onClick = { onCellClick(row, col) }
                     )
                 }
@@ -60,5 +60,11 @@ fun CellComposable(symbol: String, onClick: () -> Unit) {
 @Composable
 fun PreviewBoardComposable() {
     val gameController = GameController()
+    // Zainicjalizuj planszę, aby uniknąć problemów w podglądzie
+    gameController.getBoard().forEachIndexed { rowIndex, row ->
+        row.forEachIndexed { colIndex, _ ->
+            gameController.handleTap(rowIndex, colIndex)
+        }
+    }
     BoardComposable(gameController = gameController) { _, _ -> }
 }
