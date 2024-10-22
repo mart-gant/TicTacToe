@@ -8,7 +8,6 @@ class GameController {
     private var winner: String? = null
     private var gameOver: Boolean = false
 
-    // Funkcja do uzyskania obecnego stanu planszy
     fun getBoard(): List<List<String?>> {
         return board
     }
@@ -50,14 +49,43 @@ class GameController {
     }
 
     private fun checkGameState(row: Int, col: Int): Boolean {
-        // Sprawdzenie wiersza, kolumny i przekątnych
         val winConditions = listOfNotNull(
-            (0..2).map { board[row][it] }, // Wiersz
-            (0..2).map { board[it][col] }, // Kolumna
-            if (row == col) (0..2).map { board[it][it] } else null, // Przekątna
-            if (row + col == 2) (0..2).map { board[it][2 - it] } else null // Przekątna odwrotna
+            (0..2).map { board[row][it] },
+            (0..2).map { board[it][col] },
+            if (row == col) (0..2).map { board[it][it] } else null,
+            if (row + col == 2) (0..2).map { board[it][2 - it] } else null
         )
 
         return winConditions.any { line -> line.all { it == currentPlayer } }
+    }
+
+    fun makeMove(row: Int, col: Int) {
+        if (board[row][col] == null) {
+            board[row][col] = currentPlayer
+
+            currentPlayer = if (currentPlayer == "X") "O" else "X"
+        }
+    }
+
+    fun checkWinner(): String? {
+        for (row in 0..2) {
+            if (board[row][0] != null && board[row][0] == board[row][1] && board[row][1] == board[row][2]) {
+                return board[row][0]
+            }
+        }
+
+        for (col in 0..2) {
+            if (board[0][col] != null && board[0][col] == board[1][col] && board[1][col] == board[2][col]) {
+                return board[0][col]
+            }
+        }
+
+        if (board[0][0] != null && board[0][0] == board[1][1] && board[1][1] == board[2][2]) {
+            return board[0][0]
+        }
+        if (board[0][2] != null && board[0][2] == board[1][1] && board[1][1] == board[2][0]) {
+            return board[0][2]
+        }
+        return null
     }
 }

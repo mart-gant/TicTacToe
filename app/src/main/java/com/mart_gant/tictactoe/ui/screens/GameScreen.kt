@@ -24,7 +24,6 @@ fun GameScreen(gameController: GameController) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        // Tytuł ekranu
         Text(
             text = "Tic Tac Toe",
             style = MaterialTheme.typography.headlineMedium
@@ -32,7 +31,6 @@ fun GameScreen(gameController: GameController) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Wyświetlanie aktualnego gracza lub wyniku
         if (gameController.isGameOver()) {
             Text(
                 text = if (gameController.getWinner() != null) {
@@ -51,7 +49,6 @@ fun GameScreen(gameController: GameController) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Komponent wyświetlający planszę
         BoardComposable(gameController) { row, col ->
             gameController.handleTap(row, col)
             winner = gameController.getWinner()
@@ -60,7 +57,6 @@ fun GameScreen(gameController: GameController) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Przycisk resetujący grę
         Button(onClick = {
             gameController.resetGame()
             winner = null

@@ -14,12 +14,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Inicjalizacja gameController
         gameController = GameController()
 
         setContent {
             TicTacToeTheme {
-                // Ustawienie głównego ekranu gry
                 GameScreen(gameController = gameController)
             }
         }

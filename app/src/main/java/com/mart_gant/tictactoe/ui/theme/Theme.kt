@@ -2,17 +2,7 @@ package com.mart_gant.tictactoe.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Shapes
 import androidx.compose.runtime.Composable
-import com.example.tictactoe.ui.theme.Black
-import com.example.tictactoe.ui.theme.Blue200
-import com.example.tictactoe.ui.theme.Blue500
-import com.example.tictactoe.ui.theme.Blue700
-import com.example.tictactoe.ui.theme.Gray
-import com.example.tictactoe.ui.theme.Green500
-import com.example.tictactoe.ui.theme.LightGray
-import com.example.tictactoe.ui.theme.Red500
-import com.example.tictactoe.ui.theme.White
 
 @Composable
 fun TicTacToeTheme(
